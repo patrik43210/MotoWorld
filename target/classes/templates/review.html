@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+
+
+<div class="container">
+    <h2 class="text-center text-dark">REVIEW</h2>
+    <form  method="POST"
+           th:action="@{/view/details/review/{id}(id=${id})}"
+           class="main-form mx-auto col-md-6 d-flex flex-column justify-content-center">
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3" th:object="${reviewBindingModel}">
+
+                <label for="review" class="text-white"> Review
+                    </label>
+                <textarea style="width: 200%; height: 50%" th:field="*{review}" id="review" type="text" min="5" class="form-control"
+                                                      placeholder="review"></textarea>
+                <p th:if="${#fields.hasErrors('review')}" th:errors="*{review}"
+                   class="errors alert alert-danger">
+                   The review must be a but longer then 5 characters.
+                </p>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Submit"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

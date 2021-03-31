@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+
+<div class="row py-5 px-4 mt-5">
+    <div class="col-md-5 mx-auto">
+        <form th:object="${profile}">
+            <div class="bg-white shadow rounded overflow-hidden">
+                <div class="px-4 pt-0 pb-4 cover">
+                    <div class="media align-items-end profile-head">
+                        <div class="profile mr-3">
+
+                            <img th:src="${profile.getProfilePicture()} == null ? '/images/userPicture.png' : *{profilePicture.getImage()}"
+                                 alt="photo" width="130" class="rounded mb-2 img-thumbnail">
+
+                            <a th:if="${isOwner}"
+                               th:href="@{/profile/edit/{username}(username=${#authentication.getPrincipal().getUsername()})}"
+                               class="btn btn-outline-dark btn-sm btn-block">Edit profile</a></div>
+                        <div class="media-body mb-5 text-white">
+                            <h4 class="mt-0 mb-0" th:text="|*{fullName}|">Mark Williams (first last name)</h4>
+                            <p class="small mb-4"
+                               th:text="'From ' + ${profile.fromCountry == null ? '' : profile.fromCountry}">
+                                <i class="fas fa-map-marker-alt mr-2"></i>New York (from)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-light p-4 d-flex justify-content-end text-center">
+                    <ul class="list-inline mb-3">
+                    </ul>
+                </div>
+                <div class="px-4 py-3">
+                    <h5 class="mb-0">About me</h5>
+                    <div class="p-4 rounded shadow-sm bg-light">
+                        <p class="font-italic mb-0" th:text="*{aboutUser}">Web Developer</p>
+
+                    </div>
+                </div>
+                <div class="py-4 px-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="mb-0 pb-4">All Bikes</h5>
+                        <th:block th:if="${!isBanned && isOwner}">
+                            <a th:href="@{/profile/add-bike/{username}(username=${#authentication.getPrincipal().getUsername()})}"
+                               class="btn btn-link text-muted">Add Bike</a>
+                        </th:block>
+                    </div>
+
+
+                    <div class="container">
+                        <div th:each="bike : ${bikes}" class="mb-5">
+                            <div class="row">
+                                <div class="intro">
+                                    <h2 class="text-center" th:text="${bike.getName()}"> Gallery</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6" th:each="image : ${bike.getImages()}">
+                                    <a data-lightbox="photos"><img
+                                            class="img-fluid" th:src="${image.getImage()}"></a>
+
+                                </div>
+
+                            </div>
+                            <hr class="style1">
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

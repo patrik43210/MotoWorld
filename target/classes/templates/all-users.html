@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+<div class="container"
+     sec:authorize="hasRole('ROLE_ROOT_ADMIN')">
+    <h2 class="text-center text-dark">All Users</h2>
+
+    <div class="list-group" th:each="user : ${users}">
+
+        <a th:unless="${user.username == 'admin'}"
+           class="list-group-item list-group-item-action flex-column align-items-center list-inline mx-auto justify-content-center mt-1 mb-1 w-25">
+            <div class="d-flex justify-content-center">
+                <h5 class="mb-1" th:text="*{user.username}">(Username)</h5>
+            </div>
+            <th:block>
+                <a th:if="*{!user.banned}"
+                   class="dropdown-item border rounded text-center bg-danger  w-25 align-items-center"
+                   style="margin: auto" th:href="@{/admin/ban/user/{id}(id=${user.id})}">BAN</a>
+                <a th:if="*{user.banned}"
+                   class="dropdown-item border rounded text-center bg-success  w-25 align-items-center"
+                   style="margin: auto" th:href="@{/admin/unban/user/{id}(id=${user.id})}">UNBAN</a>
+                <a th:if="*{!user.isAdmin()}"
+                   class="dropdown-item border rounded text-center bg-success mb-5 w-25 align-items-center"
+                   style="margin: auto" th:href="@{/admin/promote/user/{id}(id=${user.id})}">PROMOTE</a>
+                <a th:if="*{user.isAdmin()}"
+                   class="dropdown-item border rounded text-center bg-danger mb-5 w-25 align-items-center"
+                   style="margin: auto" th:href="@{/admin/demote/user/{id}(id=${user.id})}">DEMOTE</a>
+            </th:block>
+        </a>
+
+    </div>
+</div>
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

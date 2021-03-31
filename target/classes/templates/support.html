@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+
+<div class="container-fluid">
+    <h2 class="text-center text-white mt-5 text-dark">Support</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-start ">
+        <div  class="col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+            <img class="rounded float-right w-75 p-3" src="/images/support.png" alt="support">
+        </div>
+        <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+            <form method="POST"
+                  th:action="@{/support}"
+            th:object="${supportRequestBindingModel}">
+
+            <div class="card-body pb-1">
+                <h6 class="card-title">
+
+                    <div class="card-text"><span>Support is here for your suggestions.</span></div>
+                    <p></p>
+                    <div class="card-text"><p>- If you have any questions you can ask free.</p></div>
+                    <div class="card-text"><p>- If you have any suggestions for new Places
+                        or Motorcycles you can text here.</p></div>
+                    <div class="card-text"><p>- If you want you can give us your email to contact you.</p></div>
+                </h6>
+            </div>
+
+            <div class="form-group" style="width: 100%;"  th:object="${supportRequestBindingModel}">
+                <label for="supportRequest" class="text-dark"> Ask support:
+                    </label>
+                <textarea
+                        th:field="*{supportRequest}"
+                        id="supportRequest"
+                        name="supportRequest"
+                        type="textarea" class="form-control" rows="3"
+                        placeholder="Your Support Request"></textarea>
+                <div>
+                    <p th:if="${#fields.hasErrors('supportRequest')}" th:errors="*{supportRequest}" class="errors alert alert-danger">Your question must be at least 5 characters!</p>
+                </div>
+            </div>
+
+            <div class="form-group"  th:object="${supportRequestBindingModel}">
+                <label for="email" class="text-dark font-weight-bold">Email (Optional)</label>
+                <input
+                        th:field="*{email}"
+                        id="email"
+                        name="email"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="Enter your email"/>
+                <div>
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors alert alert-danger">Invalid email!</p>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col col-md-4">
+                    <div class="button-holder d-flex">
+                        <input type="submit" class="btn btn-info btn-lg" value="Submit"/>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

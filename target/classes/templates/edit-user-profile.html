@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+<div class="container">
+    <h2 class="text-center text-dark">Edit profile</h2>
+    <form method="POST"
+          th:object="${profile}"
+          th:action="@{/profile/edit/{username}(username=${#authentication.getPrincipal().getUsername()})}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center" enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="fullName" class="text-white font-weight-bold">Fill Name</label>
+                <input
+                        th:field="*{fullName}"
+                        id="fullName"
+                        name="fullName"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="Full Name"/>
+                <div>
+                    <p th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="errors alert alert-danger">
+                        First Name is required.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="fromCountry" class="text-white font-weight-bold">From</label>
+                <input
+                        th:field="*{fromCountry}"
+                        id="fromCountry"
+                        name="fromCountry"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="From Country"/>
+
+
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="aboutUser">About</label>
+                <textarea
+                        th:field="*{aboutUser}"
+                        id="aboutUser"
+                        name="aboutUser"
+                        type="textarea" class="form-control" rows="3"
+                        placeholder="About"></textarea>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <p class="text-white font-weight-bold pl-3">User img.</p>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <div class="custom-file">
+                        <input type="file" id="file" name="file" class="custom-file-input"
+                               th:value="${profile.profilePicture}">
+                        <label th:text="${profile.profilePicture} == null ? 'Choose file' : ${profile.profilePicture}"
+                               class="custom-file-label" for="file">Choose picture file</label>
+                        <p th:if="${putJpg}" class="errors alert alert-danger">
+                            img must be .jpg or .png or .jpeg.
+                            please reload the files
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Update"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+<th:block sec:authorize="hasRole('USER')">
+    <div class="container-fluid">
+        <h2 class="text-center text-white mt-5">Details</h2>
+        <div class="offers row mx-auto d-flex flex-row justify-content-center">
+            <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+
+                <ul class="offer-details list-group list-group-flush">
+                    <li th:object="${place}" class="list-group-item">
+                        <div class="card-text" th:text="|Name *{name}|">Name</div>
+                        <div class="card-text" th:text="|Location *{location}|">Location</div>
+                        <div class="card-text" th:text="|Postcode *{postcode}|">POSTCODE</div>
+                        <div class="card-text" th:text="|Descriprion: *{description}|">Descriprion</div>
+                        <a class="place-details" th:href="*{googleLocationURL}"><span>Google Location</span></a>
+                    </li>
+                </ul>
+                <div class="card-body" th:if="${!isBanned}">
+                    <a class="dropdown-item border rounded text-center bg-success mb-3"
+                       th:href="@{/view/details/review/{placeId}(placeId=${place.id})}">Review</a>
+
+                    <a class="dropdown-item border rounded text-center bg-danger" th:if="${isFavourite}"
+                       th:href="@{/view/favourite/remove/{placeId}(placeId=${place.id})}">Remove Favourite</a>
+                    <a class="dropdown-item border rounded text-center bg-warning" th:unless="${isFavourite}"
+                       th:href="@{/view/favourite/{placeId}(placeId=${place.id})}">Add Favourite</a>
+                </div>
+            </div>
+
+            <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li th:if="${place.getImages().size() == 2}" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li th:if="${place.getImages().size() == 3}" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" th:src="${place.getImages().get(0).getImage()}"
+                                 alt="First slide">
+                        </div>
+                        <div class="carousel-item" th:each="image, i: *{place.getImages()}" th:if="${i.index != 0}">
+                            <img class="d-block w-100" th:src="${image.getImage()}" alt="First slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <ul class="pl-5 p-3">
+            <li>
+                <div class="col-4 p-3 mb-2 bg-info text-white rounded " th:each="review :${reviews}">
+                    <a class="float-left text-dark" th:href="@{/profile/{username}(username=${review.user.username})}"><strong
+                            th:text="*{review.getUser().username}">Maniruzzaman Akash9(Usernaem)</strong></a>
+                    <div class="clearfix"></div>
+                    <p th:text="*{review.getReview()}">Lorem Ipsum is simply dummy text of the pr make but also the leap
+                        into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                        with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                        desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</th:block>
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

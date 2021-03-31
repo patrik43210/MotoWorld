@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+
+<div class="container">
+    <h2 class="text-center text-dark">Add you bike</h2>
+    <form method="POST"
+          th:object="${addUserBikeBindingModel}"
+          th:action="@{/profile/add-bike/{username}(username=${username})}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
+          enctype="multipart/form-data">
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="name" class="text-white font-weight-bold">Bike Make Model</label>
+                <input
+                        th:field="*{name}"
+                        id="name"
+                        name="name"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="Bike Make Model"/>
+                <div>
+                    <p
+                            th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                            class="errors alert alert-danger">
+                        Bike Make Model is required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="row">
+            <p class="text-white font-weight-bold pl-3">Motorcycle img.</p>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <div class="custom-file">
+                        <input type="file" id="file1" name="file1" class="custom-file-input" th:value="*{imageUrl1}">
+                        <label th:text="${#strings.isEmpty(addUserBikeBindingModel.imageUrl1)} ? 'Choose file' : *{imageUrl1}"
+                               class="custom-file-label" for="file1" >Choose picture file</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 pt-3">
+                    <div class="custom-file">
+                        <input type="file" id="file2" name="file2" class="custom-file-input" th:value="*{imageUrl2}">
+                        <label th:text="${#strings.isEmpty(addUserBikeBindingModel.imageUrl2)} ? 'Choose file' : *{imageUrl2}"
+                               class="custom-file-label" for="file2" >Choose picture file</label>
+
+                        <p th:if="${putJpg}" class="errors alert alert-danger">
+                            img must be .jpg or .png or .jpeg.
+                            please reload the files
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Add"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

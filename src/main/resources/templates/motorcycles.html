@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+
+<div sec:authorize="hasRole('USER')" class="container-fluid">
+    <div class="mt-5 col-sm-12 my-auto align-self-center justify-content-center w-50">
+        <h2 class="text-center text-dark mt-5 w-50">SEARCH</h2>
+        <input id="searchInput" class="form-control mr-sm-2 w-50" type="search"
+               placeholder="Enter Motorcycle make or model" aria-label="Search">
+    </div>
+    <h2 class="text-center text-dark mt-5">Motorcycles</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-center" id="motorcycleList">
+
+    </div>
+
+</div>
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+
+<script>
+
+
+    const motorcycleList = document.getElementById('motorcycleList')
+    const search = document.getElementById('searchInput')
+
+    const allMotorcycles= [];
+
+    fetch("http://localhost:8080/moto/api").then(response => response.json()).then(data => {
+        for (let motorcycle of data) {
+            allMotorcycles.push(motorcycle);
+        }
+        displayMotorcycles(allMotorcycles);
+    })
+
+    search.addEventListener('keyup', (e) => {
+        const searchingCharacters = search.value.toLowerCase();
+        let filteredMotorcycles = allMotorcycles.filter(motorcycle => {
+            return motorcycle.model.toLowerCase().includes(searchingCharacters)
+                || motorcycle.make.toLowerCase().includes(searchingCharacters);
+        });
+        displayMotorcycles(filteredMotorcycles);
+    })
+
+
+    const displayMotorcycles = (motorcycles) => {
+        motorcycleList.innerHTML = motorcycles
+            .map((moto) => {
+                return `
+            <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0 mb-5">
+            <div class="card-img-top-wrapper">
+                <img class="card-img-top" src="${moto.image}"  alt="Motorcycle image" >
+            </div>
+            <div class="card-body pb-1">
+                <h5 class="card-title" th:text="|Make ${moto.make} - Model ${moto.model}|">Yamaha R1(BrandModel)</h5>
+            </div>
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text"><span th:text="|${moto.cc}cc, ${moto.hp}hp|">1000cc(CC), 200hp(HP)</span></div>
+                    <div class="card-text" th:text="${moto.type}">SuperSport(TYPE)</div>
+                </li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link" href="/view/motorcycles/details/${moto.id}">Details</a>
+            </div>
+</div>
+`
+            })
+            .join('');
+
+    }
+
+
+
+
+
+</script>
+</body>
+
+</html>

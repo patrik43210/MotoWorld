@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragment :: head"></head>
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+
+<header th:replace="fragments/fragment :: navigation"></header>
+<main class="p-5 align-content-center bg-blur">
+  <div class="container-fluid">
+    <h2 class="text-center text-white text-dark bg-warning rounded p-3 w-50">Ooooops <span class="bg-danger text-white rounded">ERROR</span> we are sorry</h2>
+    <div class="offers row mx-auto d-flex flex-row justify-content-start ">
+      <div  class="col-sm-2 col-md-3  col-lg-4 m-1 p-0">
+        <img class="rounded float-right w-75 p-3" src="/images/support.png" alt="support">
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="fragments/fragment :: footer"></footer>
+</body>
+</html>

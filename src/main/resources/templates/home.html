@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+
+
+
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+<div class="row  d-flex flex-row ">
+
+<div class=" col">
+<div class="container-fluid">
+    <div class="mb-3">
+        <h2 class="text-white bg-dark p-3 w-50 rounded ml-3 mt-5">Do you want to see all users?</h2>
+<button class="btn btn-primary m-3" id="loadAuthors">load all Users</button>
+<button class="btn btn-danger m-3" id="hideAuthors">hide all Users</button>
+</div>
+    <div class="bg-white rounded w-50 p-3 m-3">
+<table>
+    <tbody class="authors-container">
+    </tbody>
+</table>
+    </div>
+</div>
+</div>
+
+<div class=" col mt-5 ">
+    <h2 class="text-center text-dark mt-5 bg-white rounded w-50">Most Popular Motorcycles For The Day</h2>
+<div th:if="${motorcycle} != null" class="offer card col-sm-8 col-md-6  col-lg-4 m-2 p-1">
+    <div class="card-img-top-wrapper">
+        <img class="card-img-top" th:src="${motorcycle.images.get(0).getImage()}"  alt="Motorcycle image" >
+    </div>
+    <div class="card-body pb-1">
+        <h5 class="card-title" th:text="|Make ${motorcycle.make} - Model ${motorcycle.model}|">Yamaha R1(BrandModel)</h5>
+    </div>
+    <ul class="offer-details list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="card-text"><span th:text="|${motorcycle.cc}cc, ${motorcycle.hp}hp|">1000cc(CC), 200hp(HP)</span></div>
+            <div class="card-text" th:text="${motorcycle.type}">SuperSport(TYPE)</div>
+        </li>
+    </ul>
+    <div class="card-body">
+        <a class="card-link" th:href="@{/view/motorcycles/details/{motorcycleId}(motorcycleId=${motorcycle.id})}">Details</a>
+    </div>
+</div>
+</div>
+</div>
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+
+<script th:src="@{js/users.js}"></script>
+</body>
+
+</html>

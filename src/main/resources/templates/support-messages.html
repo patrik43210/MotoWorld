@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      >
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+<div class="container">
+    <h2 class="text-center text-dark">Support messages</h2>
+
+<div class="list-group" th:each="message : ${messages}">
+
+    <a class="list-group-item list-group-item-action flex-column align-items-start  mt-1 mb-1">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1" th:text="${message.email != '' ? message.email : 'Anonymus' }">(User EMAIL or Anonymous)</h5>
+            <small th:text="*{message.date}">3 days ago(date)</small>
+        </div>
+        <p class="mb-1" th:text="*{message.supportRequest}">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+
+            <a class="dropdown-item border rounded text-center bg-danger mb-5"
+               th:href="@{/admin/delete/message/{id}(id=${message.id})}">delete</a>
+
+
+    </a>
+
+
+
+
+
+</div>
+</div>
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

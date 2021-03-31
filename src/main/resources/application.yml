@@ -1,0 +1,31 @@
+cloudinary:
+    api-key: 692659833624857
+    api-secret: "${CLOUD_API_SECRET}"
+    cloud-name: patrik43210
+spring:
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        password: "${SQL_PASSWORD}"
+        url: jdbc:mysql://localhost:3306/MotoWorld?createDatabaseIfNotExist=true
+        username: root
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL8Dialect
+                format_sql: true
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 10MB
+            max-request-size: 10MB
+
+slos-config:
+  slos:
+    -
+      id: motorcycles
+      threshold: 10000
+    -
+      id: places
+      threshold: 10000

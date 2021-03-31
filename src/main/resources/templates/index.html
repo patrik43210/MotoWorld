@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${img} + ');'">
+<header>
+    <nav th:fragment="navigationAnonymus"
+         class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <a class="navbar-brand" href="/"><img alt="logo" src="/images/logo.jpg" class="logo"></a>
+        <div class="pr-5">
+            <span class="navbar-text text-dark bg-light rounded p-2">MotoWorld</span>
+        </div>
+        <div class="collapse navbar-collapse" id="navCollapse">
+            <ul class="navbar-nav pr-5 mr-auto col-12 justify-content-end">
+
+                <li class="nav-item pr-5">
+                    <a class="nav-link"
+                       th:href="@{/user/register}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/user/login}">Login</a>
+                </li>
+
+            </ul>
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

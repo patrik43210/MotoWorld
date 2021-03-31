@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+<div class="container"
+     sec:authorize="hasRole('ROLE_ADMIN')">
+    <h2 class="text-center text-dark">Add Motorcycle</h2>
+    <form th:object="${adminAddMotorcycleBindingModel}" th:action="@{/admin/add/motorcycle}" method="POST"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center" enctype="multipart/form-data">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="make" class="text-white font-weight-bold">Make</label>
+                <input
+                        th:field="*{make}"
+                        id="make"
+                        name="make"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="make"/>
+                <div>
+                    <p th:if="${#fields.hasErrors('make')}" th:errors="*{make}" class="errors alert alert-danger">
+                        Maker is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="model" class="text-white font-weight-bold">Model</label>
+                <input
+                        th:field="*{model}"
+                        id="model"
+                        name="model"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="model"/>
+                <div>
+                    <p th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="errors alert alert-danger">
+                        Model is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="cc" class="text-white font-weight-bold">CC</label>
+                <input
+                        th:field="*{cc}"
+                        id="cc"
+                        name="cc"
+                        type="number" class="form-control"
+                        placeholder="CC"/>
+                <p th:if="${#fields.hasErrors('cc')}" th:errors="*{cc}" class="errors alert alert-danger">
+                    CC is required.
+                </p>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="hp" class="text-white font-weight-bold">HP</label>
+                <input
+                        th:field="*{hp}"
+                        id="hp"
+                        name="hp"
+                        type="number" class="form-control"
+                        placeholder="HP"/>
+                <p th:if="${#fields.hasErrors('hp')}" th:errors="*{hp}" class="errors alert alert-danger">
+                    HP is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="form-group col-md-6 mb-3">
+                <label for="type" class="text-white font-weight-bold">Type</label>
+                <input
+                        th:field="*{type}"
+                        id="type"
+                        name="type"
+                        type="text" min="2" max="50"
+                        class="form-control"
+                        placeholder="type"/>
+                <div>
+                    <p th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="errors alert alert-danger">
+                        Type is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-white font-weight-bold" for="description">Description</label>
+                <textarea
+                        th:field="*{description}"
+                        id="description"
+                        name="description"
+                        type="textarea" class="form-control" rows="3"
+                        placeholder="Description"></textarea>
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="errors alert alert-danger">
+                    Description is required.
+                </p>
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group">
+            <label class="text-white font-weight-bold" for="dealerUrl">Dealer url.</label>
+            <input
+                    th:field="*{dealerUrl}"
+                    id="dealerUrl"
+                    name="dealerUrl"
+                    type="url" class="form-control"
+                    placeholder="Put dealer URL here">
+            <p th:if="${#fields.hasErrors('dealerUrl')}" th:errors="*{dealerUrl}" class="errors alert alert-danger">
+                Motorcycle image URL is required.
+            </p>
+
+
+        </div>
+
+
+        <div class="row">
+            <p class="text-white font-weight-bold pl-3">Motorcycle img.</p>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <div class="custom-file">
+                        <input type="file" id="file1" name="file1" class="custom-file-input" th:value="*{imageUrl1}">
+                        <label th:text="${#strings.isEmpty(adminAddMotorcycleBindingModel.imageUrl1)} ? 'Choose file' : *{imageUrl1}"
+                               class="custom-file-label" for="file1" >Choose picture file</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 pt-3">
+                    <div class="custom-file">
+                        <input type="file" id="file2" name="file2" class="custom-file-input" th:value="*{imageUrl2}">
+                        <label th:text="${#strings.isEmpty(adminAddMotorcycleBindingModel.imageUrl2)} ? 'Choose file' : *{imageUrl2}"
+                               class="custom-file-label" for="file2" >Choose picture file</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 pt-3">
+                    <div class="custom-file">
+
+                        <input type="file" id="file3" name="file3" class="custom-file-input" th:value="*{imageUrl3}">
+                        <label th:text="${#strings.isEmpty(adminAddMotorcycleBindingModel.imageUrl3)} ? 'Choose file' : *{imageUrl1}"
+                               class="custom-file-label" for="file3" >Choose picture file</label>
+                        <p th:if="${putJpg}" class="errors alert alert-danger">
+                            img must be .jpg or .png or .jpeg.
+                            please reload the files
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="ADD"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>

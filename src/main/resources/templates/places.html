@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/fragment :: head">
+</head>
+
+<body th:style="'background-image:url(' + ${bgImage} + ');'">
+<header>
+    <nav th:replace="fragments/fragment :: navigation">
+    </nav>
+</header>
+
+
+<div sec:authorize="hasRole('USER')" class="container-fluid">
+    <h2 class="text-center text-dark mt-5">Places</h2>
+    <div class="card-body">
+        <a class="dropdown-item border rounded text-center bg-warning w-25 ml-auto mr-auto mb-2 "
+           th:href="@{/view/favourite/places/}">SHOW Favourite</a>
+        <a class="dropdown-item border rounded text-center bg-warning w-25 m-auto"
+           th:href="@{/view/places}">SHOW All</a>
+    </div>
+
+    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+
+
+        <div th:each="place : ${places}"  class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div class="card-img-top-wrapper">
+                <img class="card-img-top" th:src="*{place.images.get(0).getImage()}"  alt="place image">
+            </div>
+            <div class="card-body pb-1">
+                <h5 class="card-title" th:text="|Name ${place.name}|">Ryca's(NAME)</h5>
+            </div>
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text"  th:text="|Location ${place.location}|"><span>Old London Rd, Dorking(LOCATION)</span></div>
+                    <div class="card-text"  th:text="|Postcode ${place.postcode}|">RH5 6BY(POSTCODE)</div>
+                </li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link" th:href="@{/view/places/details/{placeId}(placeId=${place.id})}">Details</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<footer th:replace="fragments/fragment :: footer">
+</footer>
+</body>
+
+</html>
