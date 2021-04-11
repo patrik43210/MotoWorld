@@ -62,12 +62,12 @@
                 <img class="card-img-top" src="${moto.image}"  alt="Motorcycle image" >
             </div>
             <div class="card-body pb-1">
-                <h5 class="card-title" th:text="|Make ${moto.make} - Model ${moto.model}|">Yamaha R1(BrandModel)</h5>
+                <h5 class="card-title" >Make ${moto.make} - Model ${moto.model}</h5>
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span th:text="|${moto.cc}cc, ${moto.hp}hp|">1000cc(CC), 200hp(HP)</span></div>
-                    <div class="card-text" th:text="${moto.type}">SuperSport(TYPE)</div>
+                    <div class="card-text"><span>${moto.cc}cc, ${moto.hp}hp</span></div>
+                    <div class="card-text" >${moto.type}</div>
                 </li>
             </ul>
             <div class="card-body">
