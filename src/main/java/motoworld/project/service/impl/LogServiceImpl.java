@@ -75,7 +75,7 @@ public class LogServiceImpl implements LogService {
 
     @Scheduled(cron = "50 * * * * *")
     public void onEachMinute() {
-        LOGGER.info("The most popular bike for the date update," +
+        LOGGER.info("The most popular bike for the day updated," +
                 "should delete everyday but for the demo " +
                 "is updated on every minute at :50sec");
        logRepository.deleteAll();
