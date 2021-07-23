@@ -1,6 +1,5 @@
 package motoworld.project.init;
 
-import motoworld.project.init.Init;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
