@@ -14,7 +14,9 @@
     <name>motoworld</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-            <java.version>15</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
