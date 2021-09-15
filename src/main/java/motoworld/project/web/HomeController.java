@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 
 
-@Controller
+@RestController
 public class HomeController {
 
 
@@ -35,19 +35,16 @@ public class HomeController {
         this.logService = logService;
     }
 
-//    @GetMapping("/")
-//    public String index(@AuthenticationPrincipal UserDetails principal, Model model) {
-//        if (principal == null) {
-//            model.addAttribute("img","images/welcome.jpg");
-//            return "index";
-//        }
-//        return "redirect:/home";
-//    }
-
     @GetMapping("/")
-    public String index() {
-        return "Hello";
+    public String index(@AuthenticationPrincipal UserDetails principal, Model model) {
+        if (principal == null) {
+            model.addAttribute("img","images/welcome.jpg");
+            return "index";
+        }
+        return "redirect:/home";
     }
+
+
 
     @GetMapping("/home")
     public String home(Model model) {
