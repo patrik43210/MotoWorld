@@ -34,7 +34,7 @@ public class HomeController {
         this.logService = logService;
     }
 
-    @GetMapping("moto-world.herokuapp.com")
+    @GetMapping("/")
     public String index(@AuthenticationPrincipal UserDetails principal, Model model) {
         if (principal == null) {
             model.addAttribute("img","images/welcome.jpg");
