@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -34,15 +35,19 @@ public class HomeController {
         this.logService = logService;
     }
 
-    @GetMapping("/")
-    public String index(@AuthenticationPrincipal UserDetails principal, Model model) {
-        if (principal == null) {
-            model.addAttribute("img","images/welcome.jpg");
-            return "index";
-        }
-        return "redirect:/home";
-    }
+//    @GetMapping("/")
+//    public String index(@AuthenticationPrincipal UserDetails principal, Model model) {
+//        if (principal == null) {
+//            model.addAttribute("img","images/welcome.jpg");
+//            return "index";
+//        }
+//        return "redirect:/home";
+//    }
 
+    @GetMapping("/")
+    public String index() {
+        return "Hello";
+    }
 
     @GetMapping("/home")
     public String home(Model model) {
