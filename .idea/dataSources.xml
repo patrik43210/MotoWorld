@@ -10,5 +10,11 @@
         <property name="serverTimezone" value="+8:00" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="zgjhtzpto16h02wv@pei17y9c5bpuh987.chr7pe7iynqr.eu-west-1.rds.amazonaws.com" uuid="a52ea692-64a2-4fff-91ed-a67e50db4376">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://pei17y9c5bpuh987.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/zgjhtzpto16h02wv</jdbc-url>
+    </data-source>
   </component>
 </project>

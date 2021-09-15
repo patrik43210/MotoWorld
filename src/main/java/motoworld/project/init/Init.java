@@ -60,7 +60,7 @@ public class Init {
 
             userInfoRepository.save(userInfo);
 
-            UserEntity admin = new UserEntity().setUsername("admin").setUserInfo(userInfo).setPassword(passwordEncoder.encode("admin"));
+            UserEntity admin = new UserEntity().setUsername("patrik43210").setUserInfo(userInfo).setPassword(passwordEncoder.encode("zFtzZtSbKTlU82oO92hI"));
             admin.setRoles(List.of(adminRole, userRole, rootAdmin));
 
             userRepository.save(admin);
